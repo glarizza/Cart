@@ -3,6 +3,7 @@
 ##  To build a package, change to the directory containing this Rakefile and
 ##  run the command "rake pkg". You will need sudo access to build the pkg.
 ##  To build a dmg file, run the "rake dmg" command.
+##  To build a zip file, run the "rake zip" command.
 
 require 'pathname'
 require 'fileutils'
@@ -13,7 +14,7 @@ task :default => :pkg
 # Any variables that need to be changed should be done inside the customize
 # method
 def customize
-  @title = "Install_Firefox"
+  @title          = "Install_Firefox"
   @reverse_domain = "com.puppetlabs"
 end
 
