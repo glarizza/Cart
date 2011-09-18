@@ -70,7 +70,6 @@ namespace :cart do
 
   def build_package
     @package_file  = "#{@package_name}.pkg"
-    @zip_name      = "#{@package_file}.zip"
     safe_system("sudo #{PACKAGEMAKER} --root #{@working_tree['WORK_D']} \
     		--id #{@package_id} \
     		--filter DS_Store \
@@ -95,7 +94,17 @@ namespace :cart do
   		-format #{@dmg_format} \
   		#{@dmg_name}")
   end
-	
+
+  def build_zip
+    @zip_file      = "#{@package_name}.zip"
+    build_package
+    safe_system("sudo #{DITTO} -c -k \
+  		--noqtn --noacl \
+  		--sequesterRsrc \
+  		#{@working_tree['PAYLOAD_D']} \
+  		#{@zip_file}")
+  end
+
 	def make_directory_tree
 	  @package_id    = "#{@reverse_domain}.#{@title}"
 	  @package_name  = "#{@title}-#{@package_version}"

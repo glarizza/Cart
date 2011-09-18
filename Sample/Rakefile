@@ -45,4 +45,12 @@ task :dmg do
   pack
   output_file
   build_dmg
+desc "This task will create a .zip file with your package in it."
+task :zip do
+  customize
+  make_directory_tree
+  pack
+  output_file
+  build_zip
+  announce("Your package #{@zip_file} has been built!")
 end
