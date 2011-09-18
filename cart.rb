@@ -84,6 +84,7 @@ namespace :cart do
   
   def build_dmg
     @dmg_file      = "#{@package_name}.dmg"
+    build_package
     safe_system("sudo hdiutil create -volname #{@package_name} \
   		-srcfolder #{@working_tree['PAYLOAD_D']} \
   		-uid 99 \
