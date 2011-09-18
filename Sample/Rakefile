@@ -1,0 +1,44 @@
+##  This sample Rakefile will copy a file to the /Users/Shared directory
+
+require 'pathname'
+require 'fileutils'
+require "#{Pathname.pwd.parent}/cart"
+
+task :default => :pkg
+
+# Any variables that need to be changed should be done inside the customize
+# method
+def customize
+  @title = "Install_Firefox"
+  @reverse_domain = "com.puppetlabs"
+end
+
+# The pack method is for adding files to the package's payload. Note that
+# @working_tree['WORK_D'] is the path to the working directory. All files
+# installed into this directory will be copied into the package's payload.
+def pack
+  FileUtils.mkdir_p("#{@working_tree['WORK_D']}/Users/Shared")
+  safe_system("#{INSTALL} -m 755 special.file #{@working_tree['WORK_D']}/Users/Shared/special.file")
+end
+
+
+### Nothing Below this line should need to be modified ###
+
+
+desc "This task will create an Apple .pkg file"
+task :pkg do
+  customize
+  make_directory_tree
+  pack
+  output_file
+  build_package
+end
+
+desc "This task will create an Apple .pkg encapsulated into a .dmg file"
+task :dmg do
+  customize
+  make_directory_tree
+  pack
+  output_file
+  build_dmg
+end
