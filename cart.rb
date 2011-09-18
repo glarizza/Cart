@@ -33,7 +33,7 @@ namespace :cart do
   
   #Prototype.plist options for ERB template
   @output_file       = 'prototype.plist'
-  @template_file     = "#{Pathname.pwd.parent}/cart.plist.erb"
+  @template_file     = "#{Pathname.pwd.parent.parent}/cart.plist.erb"
 
   # Set @package_version in your Rakefile if you don't want version set to
   # today's date
