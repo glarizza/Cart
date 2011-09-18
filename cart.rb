@@ -11,17 +11,17 @@ namespace :cart do
   MM            = DATE.month
   DD            = DATE.day
   BUILD_DATE    = DATE.strftime("%Y-%m-%dT%H:%M:%SZ")
-  
-  # Arguments to be passed to Packagemaker binary
+
+# Arguments to be passed to Packagemaker binary
   PM_EXTRA_ARGS  = '--verbose --no-recommend --no-relocate'
-  
+
   # Path to binaries
   TAR           = '/usr/bin/tar'
   CP            = '/bin/cp'
   INSTALL       = '/usr/bin/install'
   DITTO         = '/usr/bin/ditto'
   PACKAGEMAKER  = '/Developer/usr/bin/packagemaker'
-  
+
   # Plist options
   @plist_flavor      = 'plist'
   @package_plist     = '.package.plist'
@@ -30,7 +30,7 @@ namespace :cart do
   @title             = 'CHANGE_ME'
   @reverse_domain    = 'com.replaceme'
   @pm_restart        = 'None'
-  
+
   #Prototype.plist options for ERB template
   @output_file       = 'prototype.plist'
   @template_file     = "#{Pathname.pwd.parent.parent}/cart.plist.erb"
@@ -40,13 +40,12 @@ namespace :cart do
   @package_version       = "#{STAMP}"
   @package_major_version = "#{YY}"
   @package_minor_version = "#{MM}#{DD}"
-  
+
   # DMG-specific options
   @dmg_format_code   = 'UDZO'
   @zlib_level        = '9'
   @dmg_format_option = "-imagekey zlib-level=#{@zlib_level}"
   @dmg_format        = "#{@dmg_format_code} #{@dmg_format_option}"
-  
 
   def announce(msg='')
       STDERR.puts "================"
@@ -57,11 +56,11 @@ namespace :cart do
   def safe_system *args
       raise RuntimeError, "Failed: #{args.join(' ')}" unless system *args
   end
-  
+
   def get_template
     File.read(@template_file)
   end
-  
+
   def output_file
     File.open("#{@scratch}/#{@output_file}", "w+") do |f|
       f.write(ERB.new(get_template).result())
@@ -81,7 +80,7 @@ namespace :cart do
     		--version #{@package_version} \
     		#{PM_EXTRA_ARGS} --out #{@working_tree['PAYLOAD_D']}/#{@package_file}")
   end
-  
+
   def build_dmg
     @dmg_file      = "#{@package_name}.dmg"
     build_package
@@ -104,9 +103,9 @@ namespace :cart do
   		#{@zip_file}")
   end
 
-	def make_directory_tree
-	  @package_id    = "#{@reverse_domain}.#{@title}"
-	  @package_name  = "#{@title}-#{@package_version}"
+  def make_directory_tree
+    @package_id    = "#{@reverse_domain}.#{@title}"
+    @package_name  = "#{@title}-#{@package_version}"
     @cart_tmp      = '/tmp/cart'
     @scratch       = "#{@cart_tmp}/#{@package_name}"
     @working_tree  = {     
@@ -125,5 +124,5 @@ namespace :cart do
 
   def copy_to_local_dir(file)
     safe_system("cp -R #{@scratch}/payload/#{file} .")
-	end
+  end
 end
