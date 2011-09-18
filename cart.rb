@@ -5,12 +5,12 @@ require 'pathname'
 namespace :cart do
 
   # Time Constants 
-  date          = Time.new
-  STAMP         = date.strftime("%Y%m%d")
-  YY            = date.year
-  MM            = date.month
-  DD            = date.day
-  BUILD_DATE    = date.strftime("%Y-%m-%dT%H:%M:%SZ")
+  DATE          = Time.new
+  STAMP         = DATE.strftime("%Y%m%d")
+  YY            = DATE.year
+  MM            = DATE.month
+  DD            = DATE.day
+  BUILD_DATE    = DATE.strftime("%Y-%m-%dT%H:%M:%SZ")
   
   # Arguments to be passed to Packagemaker binary
   PM_EXTRA_ARGS  = '--verbose --no-recommend --no-relocate'
