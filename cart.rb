@@ -80,8 +80,6 @@ namespace :cart do
     		--resources #{@working_tree['RESOURCE_D']} \
     		--version #{@package_version} \
     		#{PM_EXTRA_ARGS} --out #{@working_tree['PAYLOAD_D']}/#{@package_file}")
-		safe_system("cp -R #{@scratch}/payload/#{@package_file} .")
-		announce("Your package #{@package_file} has been built!")
   end
   
   def build_dmg
@@ -123,4 +121,8 @@ namespace :cart do
       FileUtils.mkdir_p(val)
     end
   end
+
+  def copy_to_local_dir(file)
+    safe_system("cp -R #{@scratch}/payload/#{file} .")
+	end
 end
