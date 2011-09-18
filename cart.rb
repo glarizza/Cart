@@ -85,14 +85,14 @@ namespace :cart do
   end
   
   def build_dmg
-    @dmg_name      = "#{@package_name}.dmg"
+    @dmg_file      = "#{@package_name}.dmg"
     safe_system("sudo hdiutil create -volname #{@package_name} \
   		-srcfolder #{@working_tree['PAYLOAD_D']} \
   		-uid 99 \
   		-gid 99 \
   		-ov \
   		-format #{@dmg_format} \
-  		#{@dmg_name}")
+  		#{@dmg_file}")
   end
 
   def build_zip
